@@ -166,7 +166,7 @@ namespace ComputerVision
 
         private void sobelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var imgSobel = _rslGrayImage.Sobel(1, 1, 3);
+            var imgSobel = _rslGrayImage.Sobel(1, 0, 3);
             IsGray = true;
 
             Res = imgSobel.AsBitmap();
@@ -175,7 +175,7 @@ namespace ComputerVision
 
         private void laplasianToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var imgLaplasian = _rslGrayImage.Laplace(3);
+            var imgLaplasian = _rslGrayImage.Laplace(7);
             IsGray = true;
 
             Res = imgLaplasian.AsBitmap();
