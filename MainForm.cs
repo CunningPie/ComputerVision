@@ -83,6 +83,13 @@ namespace ComputerVision
             Main_ResultPicture.Image = Res;
         }
 
+        public void ApplyResult(Image<Gray, byte> res)
+        {
+            IsGray = true;
+            Res = res.AsBitmap();
+            Main_ResultPicture.Image = Res;
+        }
+
         private void grayscaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             IsGray = !IsGray;
@@ -118,7 +125,7 @@ namespace ComputerVision
         {
             if (Main_ResultPicture.Image != null)
             {
-                BinarizeForm bf = new BinarizeForm(this, _rslImage);
+                BinarizeForm bf = new BinarizeForm(this, _rslGrayImage);
 
                 bf.ShowDialog();
             }
@@ -166,7 +173,7 @@ namespace ComputerVision
 
         private void sobelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var imgSobel = _rslGrayImage.Sobel(1, 0, 3);
+            var imgSobel = _rslGrayImage.Sobel(0, 1, 3).Add(_rslGrayImage.Sobel(1, 0, 3)).AbsDiff(new Gray(0.0));
             IsGray = true;
 
             Res = imgSobel.AsBitmap();
@@ -175,7 +182,7 @@ namespace ComputerVision
 
         private void laplasianToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var imgLaplasian = _rslGrayImage.Laplace(7);
+            var imgLaplasian = _rslGrayImage.Laplace(7).Add(_rslGrayImage.Laplace(7)).AbsDiff(new Gray(0.0));
             IsGray = true;
 
             Res = imgLaplasian.AsBitmap();

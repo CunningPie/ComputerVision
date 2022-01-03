@@ -16,10 +16,10 @@ namespace ComputerVision
     public partial class BinarizeForm : Form
     {
         private MainForm _parent;
-        public Image<Bgr, byte> inputImage { get; set; }
-        public Image<Bgr, byte> outputImage { get; set; }
+        public Image<Gray, byte> inputImage { get; set; }
+        public Image<Gray, byte> outputImage { get; set; }
 
-        public BinarizeForm(MainForm mForm, Image<Bgr, byte> pic)
+        public BinarizeForm(MainForm mForm, Image<Gray, byte> pic)
         {
             InitializeComponent();
 
@@ -36,7 +36,7 @@ namespace ComputerVision
                 var thr = double.Parse(CurrentThresholdLabel.Text);
                 var max = double.Parse(CurrentColorLabel.Text);
 
-                outputImage = inputImage.ThresholdBinary(new Bgr(thr, thr, thr), new Bgr(max, max, max));
+                outputImage = inputImage.ThresholdBinary(new Gray(thr), new Gray(max));
                 PictureBox.Image = outputImage.AsBitmap();
             }
             catch (Exception e)
